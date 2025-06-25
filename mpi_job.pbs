@@ -1,0 +1,15 @@
+#!/bin/bash
+#PBS -N mpi_task
+#PBS -l select=2:ncpus=2:mpiprocs=2
+#PBS -l place=excl
+#PBS -j oe
+#PBS -o $HOME/mpi_output_$PBS_JOBID.txt
+#PBS -m abe
+
+cd $PBS_O_WORKDIR
+
+# Зберегти інформацію про кеш із усіх вузлів
+pbsdsh ./get_cache_info.sh
+
+# Запустити MPI-програму
+mpirun -np 4 ./mpi_hello_world >> $HOME/mpi_output_$PBS_JOBID.txt
