@@ -1,0 +1,14 @@
+#!/bin/bash
+#PBS -N stats_job
+#PBS -l select=1:ncpus=1
+#PBS -W depend=afterok:<jobid1>:<jobid2>:...:<jobid100>
+#PBS -j oe
+#PBS -o $HOME/stats_output.txt
+
+cd $HOME
+
+echo "=== MPI Node Statistics ===" > mpi_node_statistics.txt
+grep "Hello world" mpi_output_*.txt >> mpi_node_statistics.txt
+
+echo -e "\n=== Cache Information ===" >> mpi_node_statistics.txt
+cat cache_info_*.txt >> mpi_node_statistics.txt
